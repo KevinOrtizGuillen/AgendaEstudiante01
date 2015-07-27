@@ -388,9 +388,10 @@ body:not(#afui) .upage-outer {
 }
 @media all {
   #afui .H {
+    background-color: ;
     background-image: linear-gradient(left, #1e5799 0%, #1e5799 0%, #a5375e 70.49180327868852%, #dd2a45 100%, #dd2a45 100%);
     background-image: -webkit-linear-gradient(left, #1e5799 0%, #1e5799 0%, #a5375e 70.49180327868852%, #dd2a45 100%, #dd2a45 100%);
-    background-image: url("../gallery_images/sailing-ships.jpg");
+    background-image: url("../gallery_images/taxi-cab.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -412,5 +413,19 @@ body:not(#afui) .upage-outer {
     font-style: normal;
     color: #00ff00;
     font-family: serif;
+  }
+}
+@media all {
+  #afui .maps-size {
+    height: 250px;
+  }
+}
+@media all {
+  #afui .m {
+    background-color: ;
+    background-image: url("../images/Strabburg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 }

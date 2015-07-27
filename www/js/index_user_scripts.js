@@ -67,6 +67,21 @@
          
     });
     
+        /* button  #idmapaE */
+    $(document).on("click", "#idmapaE", function(evt)
+    {
+        /* your code goes here */ 
+        // activate_page("#idPageVerEstudiantes1"); 
+        $("#idPageVerEstudiantes1").onclick
+    });
+    
+        /* button  #idMenviar */
+    $(document).on("click", "#idMenviar", function(evt)
+    {
+        /* your code goes here */ 
+        enviarPosicion();
+    });
+    
     }
  document.addEventListener("app.Ready", register_event_handlers, false);
 })();

@@ -147,3 +147,62 @@ app.post('/getServicios', function(req, res){
 	res.json(msn);
 
 });
+
+//////////////////////////////////////////////////////////////////////////////
+// SOCKET IO//////////////////
+var CLIENTES=[];
+var io=require('socket.io').listen(server);
+io.on('connection',function(socket){
+    console.log('User id: '+socket.id);
+    /*Servicio de loguearcliente me devuelve los valors idusuario,estado,idsocket*/
+    socket.on("loginCliente", function(data,response){
+    	console.log(data);
+    	var index=buscar(data);
+    	if(index===-1){
+    		CLIENTES.push({id:data.id,estado:1,socket_id:socket.id});
+    		response({id:data.id,estado:1,socket_id:socket.id});
+    	}else{
+    		response({id:null,estado:0,socket_id:null});
+    	}
+    });
+    /*socket escuchar posiciones de los clientes*/
+    socket.on("posicionCliente",function(data){
+        console.log(data);
+    	socket.broadcast.emit("monitoriarClientes",data);
+    	socket.emit("monitoriarClientes",data);
+    });
+    /*cuando se desconecta un cliente*/
+    socket.on("disconnect", function(){
+    	console.log('usuario desconectado: '+socket.id);
+	
+    	var n=CLIENTES.length;
+    	for(var i=0;i<n;i++){
+            	console.log('hasta aqui');
+    		if(CLIENTES[i].socket_id===socket.id){
+                	console.log('hasta aqui 1');
+    			socket.broadcast.emit("MonitorCDesconectado",CLIENTES[i]);    		    
+                	socket.emit("MonitorCDesconectado",CLIENTES[i]);
+			
+			    CLIENTES.splice(i,1);
+    			break;		     		
+            	}
+		//CLIENTES.splice(i,1);//ESTAS ELIMINANDO  CLIENTES !!!!!!
+    		//break;		
+    		
+    	}
+    });
+
+});
+function buscar(data){
+	var index=-1;
+	var n=CLIENTES.length;
+	for(var i=0;i<n;i++){
+		if(CLIENTES[i].id===data.id){
+			index=i;
+			break;
+		}
+	}
+	return index;
+}
+
+/////////////////////socketio///////////////
